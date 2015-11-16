@@ -197,17 +197,17 @@ void MopsDetection::calculateTopoCorr() {
 
     double obsLatRad, obsLongRad;
 
-    obsLatRad = obsLat*DD2R;
-    obsLongRad = obsLong*DD2R;
+    obsLatRad = obsLat*PAL__DD2R;
+    obsLongRad = obsLong*PAL__DD2R;
     
-    double localAppSidTime = palGmst(MJD - slaDt(palEpj(MJD))/86400.0) + obsLongRad;
+    double localAppSidTime = palGmst(MJD - palDt(palEpj(MJD))/86400.0) + obsLongRad;
 
     double geoPosVel[6]; // observing position (and velocity) in AU, AU/sec
     palPvobs(obsLatRad, 0, localAppSidTime, geoPosVel);
     
     double raRad, decRad;
-    raRad = RA*DD2R;
-    decRad = dec*DD2R;
+    raRad = RA*PAL__DD2R;
+    decRad = dec*PAL__DD2R;
     
     float rho[3];   // geocentric unit 3-vector to object
     palCs2c(raRad, decRad, rho);
@@ -227,13 +227,13 @@ void MopsDetection::calculateTopoCorr() {
 
     // make sure result is in right quadrant
 
-    if (deltaRa < -DPIBY2) {
-        deltaRa += D2PI;
-    } else if (deltaRa > DPIBY2) {
-        deltaRa -= D2PI;
+    if (deltaRa < -PAL__DPIBY2) {
+        deltaRa += PAL__D2PI;
+    } else if (deltaRa > PAL__DPIBY2) {
+        deltaRa -= PAL__D2PI;
     }
 
-    RaTopoCorr = deltaRa*DR2D;
+    RaTopoCorr = deltaRa*PAL__DR2D;
 
 #ifdef DEBUG
     std::cerr << "topo_corr: " << MJD << ' ' << RA << ' ' << localAppSidTime << ' ' << RaTopoCorr << '\n';
