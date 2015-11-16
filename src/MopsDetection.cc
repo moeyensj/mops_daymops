@@ -6,9 +6,9 @@
 #include "lsst/mops/Exceptions.h"
 
 extern "C" {
-#include "pal.h"
+#include "star/pal.h"
 }
-#include "palmac.h"
+#include "star/palmac.h"
 
 #undef DEBUG
 
