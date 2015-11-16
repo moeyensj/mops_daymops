@@ -17,7 +17,7 @@ OPT=-O3 -DNOPEX -fPIC -shared
 #EIGEN_DIR=${THIRD}eigen/
 #BOOST_DIR=${THIRD}boost/
 #GSL_DIR=/opt/gsl/gnu/
-PAL_DIR=${PAL_DIR}
+#PAL_DIR=${PAL_DIR}
 
 EXTINCLUDES=-I ${EIGEN_DIR}/include/ -I ${BOOST_DIR}/include/ -I ${PAL_DIR}/include/ -I ${GSL_DIR}/include
 EXTLIBDIRS=-L ${BOOST_DIR}/lib -L ${PAL_DIR}/lib -L ${GSL_DIR}/lib
