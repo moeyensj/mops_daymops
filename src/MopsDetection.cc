@@ -209,19 +209,19 @@ void MopsDetection::calculateTopoCorr() {
     raRad = RA*PAL__DD2R;
     decRad = dec*PAL__DD2R;
     
-    float rho[3];   // geocentric unit 3-vector to object
-    palCs2c(raRad, decRad, rho);
+    double rho[3];   // geocentric unit 3-vector to object
+    palDcs2c(raRad, decRad, rho);
 
     // add geoPos to rho (multiplied by 1 AU) to get the topocentric vector to the object
-    float rhoTopo[3];
+    double rhoTopo[3];
     rhoTopo[0] = rho[0] + geoPosVel[0];
     rhoTopo[1] = rho[1] + geoPosVel[1];
     rhoTopo[2] = rho[2] + geoPosVel[2];
 
     // calculate the topocentric ra, dec
 
-    float raTopo, decTopo;
-    palCc2s(rhoTopo, &raTopo, &decTopo);
+    double raTopo, decTopo;
+    palDcc2s(rhoTopo, &raTopo, &decTopo);
 
     double deltaRa = raTopo - raRad;
 
