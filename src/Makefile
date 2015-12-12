@@ -9,7 +9,7 @@
 GCC = c++
 
 # if you compiled PAL as a shared library, use this OPT line
-OPT=-O3 -DNOPEX -fPIC -shared
+OPT=-g -O1 -DNOPEX -fPIC
 # if you compiled PAL as a static library, use this OPT line
 #OPT=-O3 -DNOPEX 
 #if not using EUPS, then you'll probably uncomment these (otherwise just use eups to set them up first)
