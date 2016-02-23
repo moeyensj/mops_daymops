@@ -101,8 +101,9 @@ if __name__=="__main__":
     # Find the list of all detection files
     diasFiles = glob.glob(os.path.join(args.diasDir + '*' + args.diasSuffix))
 
-    # Sort the files in MJD order.
-    nights = sorted(map(lambda x: int(x[len(args.diasDir):-(len(args.diasSuffix))]), diasFiles))
+    # Sort the files in MJD order. Expects files to use the following name format:
+    # "somemjd.ext" (ex: 59580.dias). Will remove file extension and use mjd from filename to sort files.
+    nights = sorted(int(os.path.basename(x).split('.')[0]) for x in diasFiles)
 
     print "All nights: ", nights
 
