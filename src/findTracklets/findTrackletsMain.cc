@@ -37,24 +37,28 @@ int main(int argc, char* argv[])
 
     double maxVelocity = 2.0;
     double minVelocity = 0.0;
+    double maxDt = 0.0625;
+    double minDt = 0.01;
 
     if(argc < 2){
-        std::cout << "Usage: findTracklets -i <input file> -o <output file> [-v <max velocity>] [-m <min velocity>]" << std::endl;
+        std::cout << "Usage: findTracklets -i <input file> -o <output file> [-v <max velocity>] [-m <min velocity>] [-e <max dt>] [-b <min dt>]" << std::endl;
         exit(1);
     }
 
     static const struct option longOpts[] = {
         { "inFile", required_argument, NULL, 'i' },
         { "outFile", required_argument, NULL, 'o' },
-        { "maxVeloctiy", required_argument, NULL, 'v' },
-        { "minVeloctiy", optional_argument, NULL, 'm' },
+        { "maxVelocity", optional_argument, NULL, 'v' },
+        { "minVelocity", optional_argument, NULL, 'm' },
+        { "maxDt", optional_argument, NULL, 'e'},
+        { "minDt", optional_argument, NULL, 'b'},
         { "help", no_argument, NULL, 'h' },
         { NULL, no_argument, NULL, 0 }
     };
 
 
     int longIndex = -1;
-    const char *optString = "i:o:v:m:h";
+    const char *optString = "i:o:v:m:e:b:h";
     int opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
     while( opt != -1 ) {
         switch( opt ) {
@@ -70,8 +74,14 @@ int main(int argc, char* argv[])
         case 'm':
             minVelocity = atof(optarg);
             break;
+        case 'e':
+            maxDt = atof(optarg);
+            break;
+        case 'b':
+            minDt = atof(optarg);
+            break;
         case 'h':
-            std::cout << "Usage: findTracklets -i <input file> -o <output file> [-v <max velocity>] [-m <min velocity>]" << std::endl;
+            std::cout << "Usage: findTracklets -i <input file> -o <output file> [-v <max velocity>] [-m <min velocity>] [-e <max dt>] [-b <min dt>]" << std::endl;
             exit(0);
         default:
             break;
@@ -91,6 +101,8 @@ int main(int argc, char* argv[])
     lsst::mops::findTrackletsConfig config;
     config.maxV = maxVelocity;
     config.minV = minVelocity;
+    config.maxDt = maxDt;
+    config.minDt = minDt;
     config.outputMethod = lsst::mops::IDS_FILE_WITH_CACHE;
     config.outputFile = outFileName;
     // hold up to 1 GB before purging.
