@@ -78,15 +78,14 @@ public:
             minUniqueNights = 3;
             minDetectionsPerTrack = 6;
            
-
             /* Kubica uses .0005, but that's in RADIANS! this is the
              * degree equivalent. */
-            trackAdditionThreshold = .028648;
+            trackAdditionThreshold = 0.5; // .028648;
 
             /* This is the square root of value we've been giving
              * Kubica (0.00000025); he takes MEAN SQUARED not ROOT
              * mean squared as we do. */           
-            trackMaxRms = .0005;
+            trackMaxRms = 0.05; // .0005
 
 
             // Now with "sparse" KD-Trees it appears that leaf node
@@ -111,10 +110,10 @@ public:
             obsLong = -70.804;
 
             // default astrometric error, in degrees
-            defaultAstromErr = 0.2 / 3600;
+            defaultAstromErr = 0.2 / 3600; // 0.2 / 3600;
 
             // min prob(Chisq) of the fit of model to track points to consider a candidate track further
-            trackMinProbChisq = 0.98;
+            trackMinProbChisq = 0.00; // 0.98
 
 
             // when recentering detections, get everything within 180

@@ -931,6 +931,8 @@ void buildTracksAddToResults(
                         std::cout << "track passed rms\n";
 #endif
                         results.insert(newTrack);
+                        std::cout << newTrack.getProbChisqDec() << " " << newTrack.getProbChisqRa() << "\n";
+
                     } else {
 #ifdef DEBUG
                         std::cout << "track failed rms\n";

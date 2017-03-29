@@ -35,10 +35,10 @@ int main(int argc, char* argv[])
       * we know we're being run from the command line, so set verbosity high.
       */
 
-     searchConfig.myVerbosity.printStatus = true;
-     searchConfig.myVerbosity.printVisitCounts = true;
-     searchConfig.myVerbosity.printTimesByCategory = true;
-     searchConfig.myVerbosity.printBoundsInfo = true;
+     searchConfig.myVerbosity.printStatus = false;
+     searchConfig.myVerbosity.printVisitCounts = false;
+     searchConfig.myVerbosity.printTimesByCategory = false;
+     searchConfig.myVerbosity.printBoundsInfo = false;
      
      int bufferSize = 1000;
 
