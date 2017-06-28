@@ -61,8 +61,20 @@ int main(int argc, char* argv[])
 	  + boost::lexical_cast<std::string>(searchConfig.minDetectionsPerTrack) +  std::string("\n") +
 	  std::string("     -b / --outputBufferSize (int) : number of tracks to buffer in memory before flushing output. Default = ")
 	  + boost::lexical_cast<std::string>(bufferSize) +  std::string("\n") +
-	  std::string("     -n / --leafNodeSize (int) : set max leaf node size for nodes in KDTree")
-	  +  std::string("\n");
+	  std::string("     -n / --leafNodeSize (int) : set max leaf node size for nodes in KDTree. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.leafSize) +  std::string("\n") +
+      std::string("     -r / --trackMaxRms (float) : maximum RMS for individual track detections. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.trackAdditionThreshold) +  std::string("\n") +
+      std::string("     -T / --trackAdditionThreshold (float) : [purpose not clear] in radians. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.trackAdditionThreshold) +  std::string("\n") +
+      std::string("     -a / --defaultAstromErr (float) : [purpose not clear] in degrees. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.defaultAstromErr) +  std::string("\n") +
+      std::string("     -q / --trackMinProbChisq (float) : minimum chi-squared fit for track to be accepted. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.trackMinProbChisq) +  std::string("\n") +
+      std::string("     -x / --skyCenterRa (float) : topocentric recentering RA in degrees. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.skyCenterRa) +  std::string("\n") +
+      std::string("     -y / --skyCenterDec (float) : topocentric recentering Dec in degrees. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.skyCenterDec) +  std::string("\n");
 
      static const struct option longOpts[] = {
 	  { "detectionsFile", required_argument, NULL, 'd' },
@@ -77,6 +89,12 @@ int main(int argc, char* argv[])
 	  { "minDetections", required_argument, NULL, 's'},
 	  { "outputBufferSize", required_argument, NULL, 'b'},
 	  { "leafNodeSize", required_argument, NULL, 'n'},
+      { "trackMaxRms", required_argument, NULL, 'r'},
+      { "trackAdditionThreshold", required_argument, NULL, 'T'},
+      { "defaultAstromErr", required_argument, NULL, 'a'},
+      { "trackMinProbChisq", required_argument, NULL, 'q'},
+      { "skyCenterRa", required_argument, NULL, 'x'},
+      { "skyCenterDec", required_argument, NULL, 'y'},
 	  { "help", no_argument, NULL, 'h' },
 	  { NULL, no_argument, NULL, 0 }
      };  
@@ -88,7 +106,7 @@ int main(int argc, char* argv[])
 
      
      int longIndex = -1;
-     const char *optString = "d:t:o:e:D:R:F:L:u:s:b:n:h";
+     const char *optString = "d:t:o:e:D:R:F:L:u:s:b:n:r:T:a:q:x:y:h";
      int opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
      while( opt != -1 ) {
 	  switch( opt ) {
@@ -106,7 +124,6 @@ int main(int argc, char* argv[])
 	       break;
 	  case 'D':
 	       searchConfig.maxDecAccel = atof(optarg);
-
 	       break;
 	  case 'R':
 	       searchConfig.maxRAAccel = atof(optarg);
@@ -146,9 +163,27 @@ int main(int argc, char* argv[])
 	       std::cout << " Set leaf node size = " 
 			 << searchConfig.leafSize << std::endl;
 	       break;
-	  case 'h':
-	       std::cout << helpString << std::endl;
-	       return 0;
+      case 'r':
+           searchConfig.trackMaxRms = atof(optarg);
+           break;
+      case 'T':
+           searchConfig.trackAdditionThreshold = atof(optarg);
+           break;
+      case 'a':
+           searchConfig.defaultAstromErr = atof(optarg);
+           break;
+      case 'q':
+           searchConfig.trackMinProbChisq = atof(optarg);
+           break;
+      case 'x':
+           searchConfig.skyCenterRa = atof(optarg);
+           break;
+      case 'y':
+           searchConfig.skyCenterDec = atof(optarg);
+           break;
+      case 'h':
+           std::cout << helpString << std::endl;
+           return 0;
 	  default:
 	       break;
 	  }
@@ -179,7 +214,7 @@ int main(int argc, char* argv[])
      calculateTopoCorr(allDets, searchConfig);
      std::cout << "Reading tracklets file " << std::endl;
      populatePairsVectorFromFile(trackletsFileName, allTracklets);
-
+ 
      dif = lsst::mops::timeElapsed(start);
      std::cout << "Reading input took " << std::fixed << std::setprecision(10) 
 	       <<  dif  << " seconds." <<std::endl;     
