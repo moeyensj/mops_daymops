@@ -74,7 +74,11 @@ int main(int argc, char* argv[])
       std::string("     -x / --skyCenterRa (float) : topocentric recentering RA in degrees. Default = ")
       + boost::lexical_cast<std::string>(searchConfig.skyCenterRa) +  std::string("\n") +
       std::string("     -y / --skyCenterDec (float) : topocentric recentering Dec in degrees. Default = ")
-      + boost::lexical_cast<std::string>(searchConfig.skyCenterDec) +  std::string("\n");
+      + boost::lexical_cast<std::string>(searchConfig.skyCenterDec) +  std::string("\n") + 
+      std::string("     -z / --obsLat (float) : observatory latitude in degrees. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.obsLat) +  std::string("\n") +
+      std::string("     -w / --obsLong (float) : observatory East longitude in degrees. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.obsLong) +  std::string("\n");
 
      static const struct option longOpts[] = {
 	  { "detectionsFile", required_argument, NULL, 'd' },
@@ -95,6 +99,8 @@ int main(int argc, char* argv[])
       { "trackMinProbChisq", required_argument, NULL, 'q'},
       { "skyCenterRa", required_argument, NULL, 'x'},
       { "skyCenterDec", required_argument, NULL, 'y'},
+      { "obsLat", required_argument, NULL, 'z'},
+      { "obsLong", required_argument, NULL, 'w'},
 	  { "help", no_argument, NULL, 'h' },
 	  { NULL, no_argument, NULL, 0 }
      };  
@@ -106,7 +112,7 @@ int main(int argc, char* argv[])
 
      
      int longIndex = -1;
-     const char *optString = "d:t:o:e:D:R:F:L:u:s:b:n:r:T:a:q:x:y:h";
+     const char *optString = "d:t:o:e:D:R:F:L:u:s:b:n:r:T:a:q:x:y:z:w:h";
      int opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
      while( opt != -1 ) {
 	  switch( opt ) {
@@ -180,6 +186,12 @@ int main(int argc, char* argv[])
            break;
       case 'y':
            searchConfig.skyCenterDec = atof(optarg);
+           break;
+      case 'z':
+           searchConfig.obsLat = atof(optarg);
+           break;
+      case 'w':
+           searchConfig.obsLong = atof(optarg);
            break;
       case 'h':
            std::cout << helpString << std::endl;
