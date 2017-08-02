@@ -931,7 +931,7 @@ void buildTracksAddToResults(
                         std::cout << "track passed rms\n";
 #endif
                         results.insert(newTrack);
-                        std::cout << newTrack.getProbChisqDec() << " " << newTrack.getProbChisqRa() << "\n";
+                        std::cout << "chi_sq: " << newTrack.getProbChisqDec() << " " << newTrack.getProbChisqRa() << " " << newTrack.getFitRange() << "\n";
 
                     } else {
 #ifdef DEBUG

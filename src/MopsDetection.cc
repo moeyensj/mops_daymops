@@ -10,7 +10,7 @@ extern "C" {
 }
 #include "slamac.h"
 
-#undef DEBUG
+#define DEBUG
 
 /*
  * jmyers 7/29/08
@@ -236,7 +236,7 @@ void MopsDetection::calculateTopoCorr() {
     RaTopoCorr = deltaRa*DR2D;
 
 #ifdef DEBUG
-    std::cerr << "topo_corr: " << MJD << ' ' << RA << ' ' << localAppSidTime << ' ' << RaTopoCorr << '\n';
+    std::cerr << "topo_corr: " << ID << ' ' << MJD << ' ' << RA << ' ' << localAppSidTime << ' ' << RaTopoCorr << '\n';
 #endif
     
 }

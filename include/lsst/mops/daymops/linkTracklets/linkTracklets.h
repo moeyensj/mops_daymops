@@ -29,10 +29,10 @@ public:
          * going on and which imag e endpoint pair is in use for
          * linking.
          */
-        printStatus = false;
-        printVisitCounts = false;
-        printTimesByCategory = false;
-        printBoundsInfo = false;
+        printStatus = true;
+        printVisitCounts = true;
+        printTimesByCategory = true;
+        printBoundsInfo = true;
     }
     bool printStatus;
     bool printVisitCounts;

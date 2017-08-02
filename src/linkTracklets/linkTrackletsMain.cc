@@ -63,8 +63,8 @@ int main(int argc, char* argv[])
 	  + boost::lexical_cast<std::string>(bufferSize) +  std::string("\n") +
 	  std::string("     -n / --leafNodeSize (int) : set max leaf node size for nodes in KDTree. Default = ")
       + boost::lexical_cast<std::string>(searchConfig.leafSize) +  std::string("\n") +
-      std::string("     -r / --trackMaxRms (float) : maximum RMS for individual track detections. Default = ")
-      + boost::lexical_cast<std::string>(searchConfig.trackAdditionThreshold) +  std::string("\n") +
+      std::string("     -r / --trackMaxRms (float) : maximum RMS for adding individual track detections to a track. Default = ")
+      + boost::lexical_cast<std::string>(searchConfig.trackMaxRms) +  std::string("\n") +
       std::string("     -T / --trackAdditionThreshold (float) : [purpose not clear] in radians. Default = ")
       + boost::lexical_cast<std::string>(searchConfig.trackAdditionThreshold) +  std::string("\n") +
       std::string("     -a / --defaultAstromErr (float) : [purpose not clear] in degrees. Default = ")
